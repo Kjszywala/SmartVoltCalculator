@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
     <link rel="stylesheet" href="~/SmartVoltCalculator.styles.css" asp-append-version="true"/>
     <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" rel="stylesheet" />
 </head>
 <body class="m-0">
 <section class="bg-gray-800 mb-0">
@@ -42,11 +43,8 @@
           </span>
         </a>
       </div>
-
-      <!-- Collapsible wrapper -->
       <div class="!visible hidden flex-grow basis-[100%] items-center lg:!flex lg:basis-auto"
            id="navbarSupportedContentY" data-te-collapse-item>
-        <!-- Left links -->
         <ul class="mr-auto lg:flex lg:flex-row" data-te-navbar-nav-ref>
           <li data-te-nav-item-ref>
             <a class="block py-2 pr-2 text-neutral-500 transition duration-150 ease-in-out hover:text-neutral-600 focus:text-neutral-600 disabled:text-black/30 dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 dark:disabled:text-white/30 lg:px-2 [&.active]:text-black/80 dark:[&.active]:text-white/80"
@@ -58,11 +56,7 @@
                href="@Url.Action("Index", "SmartVoltCalculator")" data-te-nav-link-ref data-te-ripple-init data-te-ripple-color="light">SmartVoltCalculator</a>
           </li>
         </ul>
-        <!-- Left links -->
       </div>
-      <!-- Collapsible wrapper -->
-
-      <!-- Right elements -->
       <div class="my-1 flex items-center lg:my-0 lg:ml-auto">
         <button type="button"
                 class="mr-2 inline-block rounded px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-primary transition duration-150 ease-in-out hover:bg-neutral-500 hover:bg-opacity-10 hover:text-primary-600 focus:text-primary-600 focus:outline-none focus:ring-0 active:text-primary-700 dark:text-primary-400 dark:hover:bg-neutral-700 dark:hover:bg-opacity-60 dark:hover:text-primary-500 dark:focus:text-primary-500 dark:active:text-primary-600"
@@ -82,178 +76,45 @@
     <!-- Container wrapper -->
   </nav>
   <div x-data="app" class="bg-gray-800 min-h-100">
-    <div class="container w-full p-0">
-      <main role="main" class="w-full bg-transparent">
+    <div class="container w-full p-0 min-h-100">
+      <main role="main" class="w-full bg-transparent min-h-100" style="min-height: 100vh;">
         @RenderBody()
       </main>
     </div>
   </div>
 </section>
- <footer class="relative shadow-neutral-700/10 dark:bg-neutral-800 dark:shadow-black/30">
-      <div class="container mx-auto px-4">
-        <div class="flex flex-wrap">
-          <div class="w-full lg:w-6/12 px-4 mt-4">
-            <h4 class="text-3xl text-purple-700 font-semibold">Let's keep in touch!</h4>
-            <h5 class="text-lg mt-0 mb-2 text-gray-700">
-              Find us on any of these platforms, we respond 1-2 business days.
-            </h5>
-            <div class="mt-6">
-              <button
-                type="button"
-                data-te-ripple-init
-                data-te-ripple-color="light"
-                class="mx-1 h-9 w-9 rounded-full bg-primary uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]">
-                <!-- Facebook -->
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="mx-auto h-3.5 w-3.5"
-                  fill="currentColor"
-                  viewBox="0 0 24 24">
-                  <path
-                    d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z" />
-                </svg>
-              </button>
-              <button
-                type="button"
-                data-te-ripple-init
-                data-te-ripple-color="light"
-                class="mx-1 h-9 w-9 rounded-full bg-primary uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]">
-                <!-- Twitter -->
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="mx-auto h-3.5 w-3.5"
-                  fill="currentColor"
-                  viewBox="0 0 24 24">
-                  <path
-                    d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" />
-                </svg>
-              </button>
-              
-              <button
-                type="button"
-                data-te-ripple-init
-                data-te-ripple-color="light"
-                class="mx-1 h-9 w-9 rounded-full bg-primary uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]">
-                <!-- Linkedin -->
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="mx-auto h-3.5 w-3.5"
-                  fill="currentColor"
-                  viewBox="0 0 24 24">
-                  <path
-                    d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.988v-10.131c0-7.88-8.922-7.593-11.018-3.714v-2.155z" />
-                </svg>
-              </button>
-              <button
-                type="button"
-                data-te-ripple-init
-                data-te-ripple-color="light"
-                class="mx-1 h-9 w-9 rounded-full bg-primary uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]">
-                <!-- Linkedin -->
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="mx-auto h-3.5 w-3.5"
-                  fill="currentColor"
-                  viewBox="0 0 24 24">
-                  <path
-                    d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.988v-10.131c0-7.88-8.922-7.593-11.018-3.714v-2.155z" />
-                </svg>
-              </button>
-            </div>
-          </div>
-          <div class="w-full lg:w-6/12 px-4 mt-4">
-            <div class="flex flex-wrap items-top mb-6">
-              <div class="w-full lg:w-4/12 px-4 ml-auto">
-                <span
-                  class="block uppercase text-purple-700 text-sm font-semibold mb-2"
-                  >Useful Links</span
-                >
-                <ul class="list-unstyled">
-                  <li>
-                    <a
-                      class="text-gray-700 hover:text-gray-200 font-semibold block pb-2 text-sm"
-                      href="https://www.creative-tim.com/presentation"
-                      >About Us</a
-                    >
-                  </li>
-                  <li>
-                    <a
-                      class="text-gray-700 hover:text-gray-200 font-semibold block pb-2 text-sm"
-                      href="https://blog.creative-tim.com"
-                      >Blog</a
-                    >
-                  </li>
-                  <li>
-                    <a
-                      class="text-gray-700 hover:text-gray-200 font-semibold block pb-2 text-sm"
-                      href="https://www.github.com/creativetimofficial"
-                      >Github</a
-                    >
-                  </li>
-                  <li>
-                    <a
-                      class="text-gray-700 hover:text-gray-200 font-semibold block pb-2 text-sm"
-                      href="https://www.creative-tim.com/bootstrap-themes/free"
-                      >Free Products</a
-                    >
-                  </li>
-                </ul>
-              </div>
-              <div class="w-full lg:w-4/12 px-4">
-                <span
-                  class="block uppercase text-purple-700 text-sm font-semibold mb-2"
-                  >Other Resources</span
-                >
-                <ul class="list-unstyled">
-                  <li>
-                    <a
-                      class="text-gray-700 hover:text-gray-200 font-semibold block pb-2 text-sm"
-                      href="https://github.com/creativetimofficial/argon-design-system/blob/master/LICENSE.md"
-                      >MIT License</a
-                    >
-                  </li>
-                  <li>
-                    <a
-                      class="text-gray-700 hover:text-gray-200 font-semibold block pb-2 text-sm"
-                      href="https://creative-tim.com/terms"
-                      >Terms &amp; Conditions</a
-                    >
-                  </li>
-                  <li>
-                    <a
-                      class="text-gray-700 hover:text-gray-200 font-semibold block pb-2 text-sm"
-                      href="https://creative-tim.com/privacy"
-                      >Privacy Policy</a
-                    >
-                  </li>
-                  <li>
-                    <a
-                      class="text-gray-700 hover:text-gray-200 font-semibold block pb-2 text-sm"
-                      href="https://creative-tim.com/contact-us"
-                      >Contact Us</a
-                    >
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
+<footer class="w-full shadow-sm shadow-neutral-700/10 dark:bg-neutral-800 dark:shadow-black/30">
+    <div class="w-full p-4 md:py-8">
+        <div class="sm:flex sm:items-center sm:justify-between">
+            <a href="https://flowbite.com/" class="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
+                <img src="https://flowbite.com/docs/images/logo.svg" class="h-8" alt="Flowbite Logo" />
+                <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">SmartVoltCalculator</span>
+            </a>
+            <ul class="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
+                <li>
+                    <a href="#" class="hover:underline me-4 md:me-6">About</a>
+                </li>
+                <li>
+                    <a href="#" class="hover:underline me-4 md:me-6">Privacy Policy</a>
+                </li>
+                <li>
+                    <a href="#" class="hover:underline me-4 md:me-6">Licensing</a>
+                </li>
+                <li>
+                    <a href="#" class="hover:underline">Contact</a>
+                </li>
+            </ul>
         </div>
-        <hr class="my-6 border-gray-400" />
-        <div
-          class="flex flex-wrap items-center md:justify-between justify-center"
-        >
-          <div class="w-full md:w-4/12 px-4 mx-auto text-center">
-            <div class="text-sm text-gray-600 font-semibold py-1">
-              Copyright © 2019 
-            </div>
-          </div>
-        </div>
-      </div>
+        <hr class="my-6 border-white bg-white sm:mx-auto dark:border-white lg:my-8" />
+        <span class="block text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2023 All Rights Reserved.</span>
+    </div>
 </footer>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.12.1/dist/cdn.min.js"></script>
 <script src="/js/app.js" asp-append-version="true"></script>
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
 @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
