@@ -8,5 +8,10 @@ namespace SmartVoltCalculator.Controllers
         {
             return View();
         }
+        
+        public IActionResult Register()
+        {
+            return View();
+        }
     }
 }

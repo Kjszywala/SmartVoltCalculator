@@ -2,7 +2,7 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
-   ViewData["Title"] = "Account";
+   ViewData["Title"] = "Login";
 }
 <!-- TW Elements is free under AGPL, with commercial license required for specific uses. See more details: https://tw-elements.com/license/ and contact us for queries at tailwind@mdbootstrap.com --> 
 <section class="h-screen">
@@ -148,7 +148,7 @@
             <p class="mb-0 mt-2 pt-1 text-sm text-white font-semibold">
               Don't have an account?
               <a
-                href="#!"
+                href="@Url.Action("Register", "Account")"
                 class="text-blue-600 transition duration-150 ease-in-out hover:text-danger-600 focus:text-danger-600 active:text-danger-700"
                 >Register</a
               >
