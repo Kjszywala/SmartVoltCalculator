@@ -1,0 +1,11 @@
+.vs
+
+SmartVoltCalculator/bin
+SmartVoltCalculator/obj
+SmartVoltCalculator/node_modules
+
+SmartVoltCalculator.Api/bin
+SmartVoltCalculator.Api/obj
+
+SmartVoltCalculator.DbServices/bin
+SmartVoltCalculator.DbServices/obj
