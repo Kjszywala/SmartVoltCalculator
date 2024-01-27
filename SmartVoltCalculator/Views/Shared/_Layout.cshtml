@@ -50,16 +50,12 @@
         <ul class="mr-auto lg:flex lg:flex-row" data-te-navbar-nav-ref>
           <li data-te-nav-item-ref>
             <a class="block py-2 pr-2 text-neutral-500 transition duration-150 ease-in-out hover:text-neutral-600 focus:text-neutral-600 disabled:text-black/30 dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 dark:disabled:text-white/30 lg:px-2 [&.active]:text-black/80 dark:[&.active]:text-white/80"
-               href="#!" data-te-nav-link-ref data-te-ripple-init data-te-ripple-color="light"
-               disabled>Dashboard</a>
+               href="@Url.Action("Index", "Home")" data-te-nav-link-ref data-te-ripple-init data-te-ripple-color="light"
+               >Dashboard</a>
           </li>
           <li data-te-nav-item-ref>
             <a class="block py-2 pr-2 text-neutral-500 transition duration-150 ease-in-out hover:text-neutral-600 focus:text-neutral-600 disabled:text-black/30 dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 dark:disabled:text-white/30 lg:px-2 [&.active]:text-black/80 dark:[&.active]:text-white/80"
-               href="#!" data-te-nav-link-ref data-te-ripple-init data-te-ripple-color="light">Team</a>
-          </li>
-          <li class="mb-2 lg:mb-0" data-te-nav-item-ref>
-            <a class="block py-2 pr-2 text-neutral-500 transition duration-150 ease-in-out hover:text-neutral-600 focus:text-neutral-600 disabled:text-black/30 dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 dark:disabled:text-white/30 lg:px-2 [&.active]:text-black/80 dark:[&.active]:text-white/80"
-               href="#!" data-te-nav-link-ref data-te-ripple-init data-te-ripple-color="light">Projects</a>
+               href="@Url.Action("Index", "SmartVoltCalculator")" data-te-nav-link-ref data-te-ripple-init data-te-ripple-color="light">SmartVoltCalculator</a>
           </li>
         </ul>
         <!-- Left links -->
@@ -85,11 +81,11 @@
     </div>
     <!-- Container wrapper -->
   </nav>
-  <div class="bg-gray-800 h-100">
+  <div x-data="app" class="bg-gray-800 min-h-100">
     <div class="container w-full p-0">
-        <main role="main" class="w-full  bg-transparent">
-            @RenderBody()
-        </main>
+      <main role="main" class="w-full bg-transparent">
+        @RenderBody()
+      </main>
     </div>
   </div>
 </section>
@@ -256,8 +252,8 @@
 </footer>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="~/js/site.js" asp-append-version="true"></script>
-<script src="~/node_modules/alpinejs/dist/alpine.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.12.1/dist/cdn.min.js"></script>
+<script src="/js/app.js" asp-append-version="true"></script>
 @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
