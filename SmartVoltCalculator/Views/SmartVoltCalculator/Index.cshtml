@@ -26,16 +26,12 @@
           <div class="p-5 border border-b-0 border-gray-200 dark:border-gray-700 dark:bg-gray-900">
             <div class="grid gap-6 mb-6 md:grid-cols-2">
               <div>
-                <label for="numberOfSolarPanels" class="block mb-2 text-sm font-medium text-white dark:text-white">Number of Solar Panels:</label>
-                <input type="number" id="numberOfSolarPanels" class="bg-gray-800 border border-gray-800 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <label for="estimatedSolarSystemSize" class="block mb-2 text-sm font-medium text-white dark:text-white">Estimated Solar System Size (kW):</label>
+                <input type="number" id="estimatedSolarSystemSize" value="0" class="bg-gray-800 border border-gray-800 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
               </div>
               <div>
-                <label for="efficiency" class="block mb-2 text-sm font-medium text-white dark:text-white">Efficiency (%):</label>
-                <input type="number" id="efficiency" class="bg-gray-800 border border-gray-800 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-              </div>
-              <div>
-                <label for="powerOutput" class="block mb-2 text-sm font-medium text-white dark:text-white">Power Output (Wattage):</label>
-                <input type="number" id="powerOutput" class="bg-gray-800 border border-gray-800 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <label for="averageDailySunlightHours" class="block mb-2 text-sm font-medium text-white dark:text-white">Average Daily Sunlight Hours:</label>
+                <input type="number" id="averageDailySunlightHours" value="0" class="bg-gray-800 border border-gray-800 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
               </div>
             </div>
           </div>
@@ -107,12 +103,12 @@
               </div>
               <div class="flex items-center me-4">
                 <input id="battery" type="checkbox" value="battery" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                <label for="battery" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Battery</label>
+                <label for="battery" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Batteries</label>
               </div>
             </div>
           </div>
           <!-- Donut Chart -->
-          <div class="py-6" id="donut-chart" x-model="chart"></div>
+          <div class="py-6" id="donut-chart"></div>
         </div>
     </div>
   </div>
@@ -121,12 +117,24 @@
   window.addEventListener("load", function() {
     let monthlyElectricityUsageInput = document.getElementById('monthlyElectricityUsage');
     let priceKWHInput = document.getElementById('priceKWH');
-
+    
+    function calculateMonthlySolarSavings(){
+      let averageDailySunlightHours = parseFloat(document.getElementById('averageDailySunlightHours').value);
+      let estimatedSolarSystemSize = parseFloat(document.getElementById('estimatedSolarSystemSize').value);
+      console.log('priceKWHInput ' + priceKWHInput.value);
+      console.log('averageDailySunlightHours ' + averageDailySunlightHours);
+      console.log('estimatedSolarSystemSize ' + estimatedSolarSystemSize);
+      let dailyEnergyProduction = estimatedSolarSystemSize * averageDailySunlightHours;
+      let monthlyEnergyProduction = dailyEnergyProduction * 30;
+      return monthlyEnergyProduction * (priceKWHInput.value / 100);
+    }
+    
     function calculateMonthlyUsage() {
-        let usageKWH = monthlyElectricityUsageInput.value;
-        let pricePence = priceKWHInput.value;
-        return parseFloat((usageKWH * (pricePence / 100)).toFixed(2));
-      }
+      let usageKWH = monthlyElectricityUsageInput.value;
+      let pricePence = priceKWHInput.value;
+      return parseFloat((usageKWH * (pricePence / 100)).toFixed(2));
+    }
+      
     let monthlyUsage = calculateMonthlyUsage();
     
     const getChartOptions = () => {
@@ -218,18 +226,21 @@
         function handleCheckboxChange(chart) {
           const solarPanelsCheckbox = document.getElementById('solarPanels');
           const batteryCheckbox = document.getElementById('battery');
-  
-          monthlyUsage = calculateMonthlyUsage(); // Update monthlyUsage based on input values
+          
+          monthlyUsage = calculateMonthlyUsage();
+          let solar = calculateMonthlySolarSavings();
+          console.log(solar)
           let history = monthlyUsage;
-          let solar = 15.1;
           let battery = 26.5;
           if (solarPanelsCheckbox.checked && batteryCheckbox.checked) {
             let otherUsage = monthlyUsage - solar - battery;
             monthlyUsage = history - solar - battery;
             chart.updateSeries([solar, battery, otherUsage]);
           } else if (solarPanelsCheckbox.checked) {
-            monthlyUsage = history - solar;
-            chart.updateSeries([15.1, 0, monthlyUsage]);
+            isNaN(solar) ? 
+              monthlyUsage = history : 
+              monthlyUsage = history - solar;
+            chart.updateSeries([solar, 0, monthlyUsage]);
           } else if (batteryCheckbox.checked) {
             monthlyUsage = history - battery;
             chart.updateSeries([0, 26.5, monthlyUsage]);
