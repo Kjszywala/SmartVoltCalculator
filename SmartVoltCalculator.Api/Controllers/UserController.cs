@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SmartVoltCalculator.DbServices.Models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -8,6 +9,12 @@ namespace SmartVoltCalculator.Api.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
+        private readonly DatabaseContext dbContext;
+        public UserController(DatabaseContext dbContext)
+        {
+            this.dbContext = dbContext;
+        }
+        
         // GET: api/<UserController>
         [HttpGet]
         public IEnumerable<string> Get()

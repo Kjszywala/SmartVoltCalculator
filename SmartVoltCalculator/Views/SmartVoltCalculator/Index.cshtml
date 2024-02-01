@@ -37,18 +37,6 @@
                 <label for="powerOutput" class="block mb-2 text-sm font-medium text-white dark:text-white">Power Output (Wattage):</label>
                 <input type="number" id="powerOutput" class="bg-gray-800 border border-gray-800 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
               </div>
-              <div>
-                <label for="cost" class="block mb-2 text-sm font-medium text-white dark:text-white">Cost:</label>
-                <input type="number" id="cost" class="bg-gray-800 border border-gray-800 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-              </div>
-              <div>
-                <label for="durabilityLongevity" class="block mb-2 text-sm font-medium text-white dark:text-white">Durability and Longevity:</label>
-                <input type="text" id="durabilityLongevity" class="bg-gray-800 border border-gray-800 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-              </div>
-              <div>
-                <label for="temperatureCoefficient" class="block mb-2 text-sm font-medium text-white dark:text-white">Temperature Coefficient:</label>
-                <input type="number" id="temperatureCoefficient" class="bg-gray-800 border border-gray-800 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-              </div>
             </div>
           </div>
         </div>
@@ -114,12 +102,12 @@
           <div>
             <div class="flex items-center justify-center" id="devices">
               <div class="flex items-center me-4">
-                <input id="desktop" type="checkbox" value="desktop" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                <label for="desktop" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Solar Panels</label>
+                <input id="solarPanels" type="checkbox" value="solarPanels" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                <label for="solarPanels" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Solar Panels</label>
               </div>
               <div class="flex items-center me-4">
-                <input id="tablet" type="checkbox" value="tablet" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                <label for="tablet" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Battery</label>
+                <input id="battery" type="checkbox" value="battery" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                <label for="battery" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Battery</label>
               </div>
             </div>
           </div>
@@ -131,11 +119,16 @@
   <script>
   // ApexCharts options and config
   window.addEventListener("load", function() {
-    let priceKWH = this.priceKWH;
-    let monthlyElectricityUsage = this.monthlyElectricityUsage;
-    let usageKWH = document.getElementById('monthlyElectricityUsage').value;
-    let pricePence = document.getElementById('priceKWH').value;
-    let monthlyUsage = parseFloat((usageKWH * (pricePence / 100)).toFixed(2));
+    let monthlyElectricityUsageInput = document.getElementById('monthlyElectricityUsage');
+    let priceKWHInput = document.getElementById('priceKWH');
+
+    function calculateMonthlyUsage() {
+        let usageKWH = monthlyElectricityUsageInput.value;
+        let pricePence = priceKWHInput.value;
+        return parseFloat((usageKWH * (pricePence / 100)).toFixed(2));
+      }
+    let monthlyUsage = calculateMonthlyUsage();
+    
     const getChartOptions = () => {
         return {
           series: [0, 0, monthlyUsage],
@@ -165,10 +158,7 @@
                     label: "Calculations",
                     fontFamily: "Inter, sans-serif",
                     formatter: function (w) {
-                      const sum = w.globals.seriesTotals.reduce((a, b) => {
-                        return a + b
-                      }, 0)
-                      return `£${sum}`
+                      return `£${parseFloat(monthlyUsage).toFixed(2)}`
                     },
                   },
                   value: {
@@ -223,37 +213,41 @@
       if (document.getElementById("donut-chart") && typeof ApexCharts !== 'undefined') {
         const chart = new ApexCharts(document.getElementById("donut-chart"), getChartOptions());
         chart.render();
-
-        // Get all the checkboxes by their class name
-        const checkboxes = document.querySelectorAll('#devices input[type="checkbox"]');
-
+  
         // Function to handle the checkbox change event
-        function handleCheckboxChange(event, chart) {
-            const checkbox = event.target;
-            if (checkbox.checked) {
-                switch(checkbox.value) {
-                  case 'desktop':
-                    chart.updateSeries([15.1, 22.5, monthlyUsage]);
-                    break;
-                  case 'tablet':
-                    chart.updateSeries([25.1, 26.5, monthlyUsage]);
-                    break;
-                  case 'mobile':
-                    chart.updateSeries([45.1, 27.5, monthlyUsage]);
-                    break;
-                  default:
-                    chart.updateSeries([55.1, 28.5, monthlyUsage]);
-                }
-
-            } else {
-                chart.updateSeries([35.1, 23.5, monthlyUsage]);
-            }
+        function handleCheckboxChange(chart) {
+          const solarPanelsCheckbox = document.getElementById('solarPanels');
+          const batteryCheckbox = document.getElementById('battery');
+  
+          monthlyUsage = calculateMonthlyUsage(); // Update monthlyUsage based on input values
+          let history = monthlyUsage;
+          let solar = 15.1;
+          let battery = 26.5;
+          if (solarPanelsCheckbox.checked && batteryCheckbox.checked) {
+            let otherUsage = monthlyUsage - solar - battery;
+            monthlyUsage = history - solar - battery;
+            chart.updateSeries([solar, battery, otherUsage]);
+          } else if (solarPanelsCheckbox.checked) {
+            monthlyUsage = history - solar;
+            chart.updateSeries([15.1, 0, monthlyUsage]);
+          } else if (batteryCheckbox.checked) {
+            monthlyUsage = history - battery;
+            chart.updateSeries([0, 26.5, monthlyUsage]);
+          } else {
+            chart.updateSeries([0, 0, monthlyUsage]);
+            monthlyUsage = history;
+          }
         }
-
+  
         // Attach the event listener to each checkbox
+        const checkboxes = document.querySelectorAll('#devices input[type="checkbox"]');
         checkboxes.forEach((checkbox) => {
-            checkbox.addEventListener('change', (event) => handleCheckboxChange(event, chart));
+          checkbox.addEventListener('change', () => handleCheckboxChange(chart));
         });
+  
+        // Attach the event listener to each input field
+        monthlyElectricityUsageInput.addEventListener('input', () => handleCheckboxChange(chart));
+        priceKWHInput.addEventListener('input', () => handleCheckboxChange(chart));
       }
   });
 </script>
