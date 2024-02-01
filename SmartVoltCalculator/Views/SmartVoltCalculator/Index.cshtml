@@ -48,12 +48,16 @@
           <div class="p-5 border border-gray-200 dark:border-gray-700">
             <div class="grid gap-6 mb-6 md:grid-cols-2">
               <div>
-                <label for="batteryCapacity" class="block mb-2 text-sm font-medium text-white dark:text-white">Battery Capacity (kWh):</label>
-                <input type="number" id="batteryCapacity" class="bg-gray-800 border border-gray-800 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <label for="backupDuration" class="block mb-2 text-sm font-medium text-white dark:text-white">Backup Duration (days):</label>
+                <input type="number" id="backupDuration" class="bg-gray-800 border border-gray-800 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
               </div>
               <div>
-                <label for="batteriesQuantity" class="block mb-2 text-sm font-medium text-white dark:text-white">Batteries quantity:</label>
-                <input type="number" id="batteriesQuantity" class="bg-gray-800 border border-gray-800 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <label for="batteryEfficiency" class="block mb-2 text-sm font-medium text-white dark:text-white">Battery Efficiency (%):</label>
+                <input type="number" id="batteryEfficiency" class="bg-gray-800 border border-gray-800 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+              </div>
+              <div>
+                <label for="batteryVoltage" class="block mb-2 text-sm font-medium text-white dark:text-white">Battery Voltage (Volts):</label>
+                <input type="number" id="batteryVoltage" class="bg-gray-800 border border-gray-800 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
               </div>
             </div>
           </div>
@@ -118,15 +122,39 @@
     let monthlyElectricityUsageInput = document.getElementById('monthlyElectricityUsage');
     let priceKWHInput = document.getElementById('priceKWH');
     
-    function calculateMonthlySolarSavings(){
+    function calculateMonthlySolarSavings() {
       let averageDailySunlightHours = parseFloat(document.getElementById('averageDailySunlightHours').value);
       let estimatedSolarSystemSize = parseFloat(document.getElementById('estimatedSolarSystemSize').value);
-      console.log('priceKWHInput ' + priceKWHInput.value);
-      console.log('averageDailySunlightHours ' + averageDailySunlightHours);
-      console.log('estimatedSolarSystemSize ' + estimatedSolarSystemSize);
       let dailyEnergyProduction = estimatedSolarSystemSize * averageDailySunlightHours;
       let monthlyEnergyProduction = dailyEnergyProduction * 30;
       return monthlyEnergyProduction * (priceKWHInput.value / 100);
+    }
+    
+    function calculateMonthlyBatteriesSavings() {
+      let backupDuration = parseFloat(document.getElementById('backupDuration').value);
+      let batteryEfficiency = parseFloat(document.getElementById('batteryEfficiency').value);
+      let batteryVoltage = parseFloat(document.getElementById('batteryVoltage').value);
+      
+      let totalEnergyStorageNeeded = (monthlyElectricityUsageInput / 30) * backupDuration;
+      let adjustedTotalEnergyStorage = totalEnergyStorageNeeded / (batteryEfficiency / 100);
+      let batteryCapacityAh = adjustedTotalEnergyStorage / batteryVoltage;
+  
+      // Simulated savings based on simplified logic (replace with actual algorithm)
+      let simulatedSavings = 0;
+  
+      // Simulate discharging during peak hours and charging during off-peak hours
+      for (let day = 1; day <= 30; day++) {
+          // Assuming peak hours from 6 PM to 9 PM
+          let peakHoursUsage = (monthlyElectricityUsageInput / 30) * 3; // Simplified, adjust as per your actual usage pattern
+          simulatedSavings += (peakHoursUsage * priceKWHInput);
+  
+          // Assuming off-peak hours from 12 AM to 6 AM
+          let offPeakHoursUsage = (monthlyElectricityUsageInput / 30) * 6; // Simplified, adjust as per your actual usage pattern
+          simulatedSavings -= (offPeakHoursUsage * priceKWHInput);
+      }
+
+      // Calculate potential savings
+      return simulatedSavings;
     }
     
     function calculateMonthlyUsage() {
