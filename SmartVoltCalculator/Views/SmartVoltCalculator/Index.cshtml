@@ -121,13 +121,13 @@
   window.addEventListener("load", function() {
     let monthlyElectricityUsageInput = document.getElementById('monthlyElectricityUsage');
     let priceKWHInput = document.getElementById('priceKWH');
+    let averageDailySunlightHours = document.getElementById('averageDailySunlightHours');
+    let estimatedSolarSystemSize = document.getElementById('estimatedSolarSystemSize');
     
     function calculateMonthlySolarSavings() {
-      let averageDailySunlightHours = parseFloat(document.getElementById('averageDailySunlightHours').value);
-      let estimatedSolarSystemSize = parseFloat(document.getElementById('estimatedSolarSystemSize').value);
-      let dailyEnergyProduction = estimatedSolarSystemSize * averageDailySunlightHours;
-      let monthlyEnergyProduction = dailyEnergyProduction * 30;
-      return monthlyEnergyProduction * (priceKWHInput.value / 100);
+        let dailyEnergyProduction = parseFloat(estimatedSolarSystemSize.value) * parseFloat(averageDailySunlightHours.value);
+        let monthlyEnergyProduction = dailyEnergyProduction * 30;
+        return monthlyEnergyProduction * (priceKWHInput.value / 100);
     }
     
     function calculateMonthlyBatteriesSavings() {
@@ -287,6 +287,8 @@
         // Attach the event listener to each input field
         monthlyElectricityUsageInput.addEventListener('input', () => handleCheckboxChange(chart));
         priceKWHInput.addEventListener('input', () => handleCheckboxChange(chart));
+        averageDailySunlightHours.addEventListener('input', () => handleCheckboxChange(chart));
+        estimatedSolarSystemSize.addEventListener('input', () => handleCheckboxChange(chart));
       }
   });
 </script>
