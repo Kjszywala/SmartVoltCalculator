@@ -123,6 +123,9 @@
     let priceKWHInput = document.getElementById('priceKWH');
     let averageDailySunlightHours = document.getElementById('averageDailySunlightHours');
     let estimatedSolarSystemSize = document.getElementById('estimatedSolarSystemSize');
+    let backupDuration = document.getElementById('backupDuration');
+    let batteryEfficiency = document.getElementById('batteryEfficiency');
+    let batteryVoltage = document.getElementById('batteryVoltage');
     
     function calculateMonthlySolarSavings() {
         let dailyEnergyProduction = parseFloat(estimatedSolarSystemSize.value) * parseFloat(averageDailySunlightHours.value);
@@ -131,36 +134,32 @@
     }
     
     function calculateMonthlyBatteriesSavings() {
-      let backupDuration = parseFloat(document.getElementById('backupDuration').value);
-      let batteryEfficiency = parseFloat(document.getElementById('batteryEfficiency').value);
-      let batteryVoltage = parseFloat(document.getElementById('batteryVoltage').value);
-      
-      let totalEnergyStorageNeeded = (monthlyElectricityUsageInput / 30) * backupDuration;
-      let adjustedTotalEnergyStorage = totalEnergyStorageNeeded / (batteryEfficiency / 100);
-      let batteryCapacityAh = adjustedTotalEnergyStorage / batteryVoltage;
+        let totalEnergyStorageNeeded = (monthlyElectricityUsageInput / 30) * parseFloat(backupDuration.value);
+        let adjustedTotalEnergyStorage = totalEnergyStorageNeeded / (parseFloat(batteryEfficiency.value) / 100);
+        let batteryCapacityAh = adjustedTotalEnergyStorage / parseFloat(batteryVoltage.value);
   
-      // Simulated savings based on simplified logic (replace with actual algorithm)
-      let simulatedSavings = 0;
+        // Simulated savings based on simplified logic (replace with actual algorithm)
+        let simulatedSavings = 0;
   
-      // Simulate discharging during peak hours and charging during off-peak hours
-      for (let day = 1; day <= 30; day++) {
-          // Assuming peak hours from 6 PM to 9 PM
-          let peakHoursUsage = (monthlyElectricityUsageInput / 30) * 3; // Simplified, adjust as per your actual usage pattern
-          simulatedSavings += (peakHoursUsage * priceKWHInput);
+        // Simulate discharging during peak hours and charging during off-peak hours
+        for (let day = 1; day <= 30; day++) {
+            // Assuming peak hours from 6 PM to 9 PM
+            let peakHoursUsage = (monthlyElectricityUsageInput / 30) * 3; // Simplified, adjust as per your actual usage pattern
+            simulatedSavings += (peakHoursUsage * priceKWHInput);
   
-          // Assuming off-peak hours from 12 AM to 6 AM
-          let offPeakHoursUsage = (monthlyElectricityUsageInput / 30) * 6; // Simplified, adjust as per your actual usage pattern
-          simulatedSavings -= (offPeakHoursUsage * priceKWHInput);
-      }
+            // Assuming off-peak hours from 12 AM to 6 AM
+            let offPeakHoursUsage = (monthlyElectricityUsageInput / 30) * 6; // Simplified, adjust as per your actual usage pattern
+            simulatedSavings -= (offPeakHoursUsage * priceKWHInput);
+        }
 
-      // Calculate potential savings
-      return simulatedSavings;
+        // Calculate potential savings
+        return simulatedSavings;
     }
     
     function calculateMonthlyUsage() {
-      let usageKWH = monthlyElectricityUsageInput.value;
-      let pricePence = priceKWHInput.value;
-      return parseFloat((usageKWH * (pricePence / 100)).toFixed(2));
+        let usageKWH = monthlyElectricityUsageInput.value;
+        let pricePence = priceKWHInput.value;
+        return parseFloat((usageKWH * (pricePence / 100)).toFixed(2));
     }
       
     let monthlyUsage = calculateMonthlyUsage();
@@ -215,7 +214,7 @@
               top: -2,
             },
           },
-          labels: ["Solar Panels", "Battery", "Total Costs"],
+          labels: ["Solar Panels", "Batteries", "Total Costs"],
           dataLabels: {
             enabled: false,
           },
@@ -252,36 +251,36 @@
   
         // Function to handle the checkbox change event
         function handleCheckboxChange(chart) {
-          const solarPanelsCheckbox = document.getElementById('solarPanels');
-          const batteryCheckbox = document.getElementById('battery');
+            const solarPanelsCheckbox = document.getElementById('solarPanels');
+            const batteryCheckbox = document.getElementById('battery');
           
-          monthlyUsage = calculateMonthlyUsage();
-          let solar = calculateMonthlySolarSavings();
-          console.log(solar)
-          let history = monthlyUsage;
-          let battery = 26.5;
-          if (solarPanelsCheckbox.checked && batteryCheckbox.checked) {
+            monthlyUsage = calculateMonthlyUsage();
+            let solar = calculateMonthlySolarSavings();
+            console.log(solar)
+            let history = monthlyUsage;
+            let battery = 26.5;
+            if (solarPanelsCheckbox.checked && batteryCheckbox.checked) {
             let otherUsage = monthlyUsage - solar - battery;
             monthlyUsage = history - solar - battery;
             chart.updateSeries([solar, battery, otherUsage]);
-          } else if (solarPanelsCheckbox.checked) {
+            } else if (solarPanelsCheckbox.checked) {
             isNaN(solar) ? 
-              monthlyUsage = history : 
-              monthlyUsage = history - solar;
+                monthlyUsage = history : 
+                monthlyUsage = history - solar;
             chart.updateSeries([solar, 0, monthlyUsage]);
-          } else if (batteryCheckbox.checked) {
+            } else if (batteryCheckbox.checked) {
             monthlyUsage = history - battery;
             chart.updateSeries([0, 26.5, monthlyUsage]);
-          } else {
+            } else {
             chart.updateSeries([0, 0, monthlyUsage]);
             monthlyUsage = history;
-          }
+            }
         }
   
         // Attach the event listener to each checkbox
         const checkboxes = document.querySelectorAll('#devices input[type="checkbox"]');
         checkboxes.forEach((checkbox) => {
-          checkbox.addEventListener('change', () => handleCheckboxChange(chart));
+            checkbox.addEventListener('change', () => handleCheckboxChange(chart));
         });
   
         // Attach the event listener to each input field
